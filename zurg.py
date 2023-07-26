@@ -1,6 +1,7 @@
 from itertools import combinations
 from typing import List
 
+
 def one_returns(not_across: List[int], across: List[int], time_spent: int, time_limit: int, accumulator: list) -> List[list]:
     if time_spent > time_limit:
         return []

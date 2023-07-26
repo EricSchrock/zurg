@@ -1,5 +1,6 @@
-from zurg import *
 from math import inf
+from zurg import one_returns, two_cross, zurg
+
 
 class TestOneReturns:
     def test_termination_case_time_limit(self):

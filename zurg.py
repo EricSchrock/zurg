@@ -1,22 +1,31 @@
-def one_returns_with_flashlight(not_across, across, time_limit, solution):
+from itertools import combinations
+
+def one_returns(not_across, across, time_limit, accumulator):
     if not_across == []:
-        return solution
+        return [accumulator]
 
-    toy = across.pop()
-    not_across.append(toy)
-    solution.append(toy)
+    solutions = []
+    for toy in across:
+        solutions += two_cross(not_across  = not_across + [toy],
+                               across      = [x for x in across if x is not toy],
+                               time_limit  = time_limit,
+                               accumulator = accumulator + [toy])
 
-    return two_cross_bridge(not_across, across, time_limit, solution)
+    return solutions
 
 
-def two_cross_bridge(not_across, across, time_limit, solution):
-    toy1 = not_across.pop()
-    toy2 = not_across.pop()
+def two_cross(not_across, across, time_limit, accumulator):
+    pairs = list(combinations(not_across, r=2))
 
-    across += [toy1,toy2]
-    solution.append([toy1,toy2])
+    solutions = []
+    for pair in pairs:
+        pair = sorted(list(pair))
+        solutions += one_returns(not_across  = [x for x in not_across if x not in pair],
+                                 across      = across + pair,
+                                 time_limit  = time_limit,
+                                 accumulator = accumulator + [pair])
 
-    return one_returns_with_flashlight(not_across, across, time_limit, solution)
+    return solutions
 
 
 def zurg():
@@ -24,8 +33,9 @@ def zurg():
     across = []
     time_limit = 60
 
-    return two_cross_bridge(not_across, across, time_limit, solution=[])
+    return two_cross(not_across, across, time_limit, accumulator=[])
 
 
 if __name__ == "__main__":
-    print(zurg())
+    for solution in zurg():
+        print(solution)

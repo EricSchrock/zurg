@@ -1,6 +1,7 @@
 from itertools import combinations
+from typing import List
 
-def one_returns(not_across, across, time_spent, time_limit, accumulator):
+def one_returns(not_across: List[int], across: List[int], time_spent: int, time_limit: int, accumulator: list) -> List[list]:
     if time_spent > time_limit:
         return []
 
@@ -18,7 +19,7 @@ def one_returns(not_across, across, time_spent, time_limit, accumulator):
     return solutions
 
 
-def two_cross(not_across, across, time_spent, time_limit, accumulator):
+def two_cross(not_across: List[int], across: List[int], time_spent: int, time_limit: int, accumulator: list) -> List[list]:
     if time_spent > time_limit:
         return []
 
@@ -36,7 +37,7 @@ def two_cross(not_across, across, time_spent, time_limit, accumulator):
     return solutions
 
 
-def zurg():
+def zurg() -> List[list]:
     return two_cross(not_across  = [5,10,20,25],
                      across      = [],
                      time_spent  = 0,

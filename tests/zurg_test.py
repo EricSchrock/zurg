@@ -6,8 +6,7 @@ class TestOneReturns:
     def test_termination_case_time_limit(self):
         solutions = one_returns(not_across  = [1],
                                 across      = [2,3],
-                                time_spent  = 3,
-                                time_limit  = 2,
+                                time_left   = -1,
                                 accumulator = [[2,3]])
 
         assert solutions == []
@@ -16,8 +15,7 @@ class TestOneReturns:
     def test_termination_case_solution_found(self):
         solutions = one_returns(not_across  = [],
                                 across      = [1,2,3],
-                                time_spent  = 7,
-                                time_limit  = 7,
+                                time_left   = 0,
                                 accumulator = [[2,3],2,[1,2]])
 
         assert len(solutions) == 1
@@ -27,8 +25,7 @@ class TestOneReturns:
     def test_recursive_case_without_time_limit(self):
         solutions = one_returns(not_across  = [1],
                                 across      = [2,3],
-                                time_spent  = 3,
-                                time_limit  = inf,
+                                time_left   = inf,
                                 accumulator = [[2,3]])
 
         assert len(solutions) == 2
@@ -39,8 +36,7 @@ class TestOneReturns:
     def test_recursive_case_with_time_limit(self):
         solutions = one_returns(not_across  = [1],
                                 across      = [2,3],
-                                time_spent  = 3,
-                                time_limit  = 7,
+                                time_left   = 4,
                                 accumulator = [[2,3]])
 
         assert len(solutions) == 1
@@ -51,8 +47,7 @@ class TestTwoCross:
     def test_termination_case_time_limit(self):
         solutions = two_cross(not_across  = [1,2],
                               across      = [3],
-                              time_spent  = 5,
-                              time_limit  = 4,
+                              time_left   = -1,
                               accumulator = [[2,3], 2])
 
         assert solutions == []
@@ -61,8 +56,7 @@ class TestTwoCross:
     def test_termination_case_solution_found(self):
         solutions = two_cross(not_across  = [1,2],
                               across      = [3],
-                              time_spent  = 5,
-                              time_limit  = 7,
+                              time_left   = 2,
                               accumulator = [[2,3], 2])
 
         assert len(solutions) == 1
@@ -72,8 +66,7 @@ class TestTwoCross:
     def test_recursive_case_without_time_limit(self):
         solutions = two_cross(not_across  = [1,2,3],
                               across      = [],
-                              time_spent  = 0,
-                              time_limit  = inf,
+                              time_left   = inf,
                               accumulator = [])
 
         assert len(solutions) == 6
@@ -84,8 +77,7 @@ class TestTwoCross:
     def test_recursive_case_with_time_limit(self):
         solutions = two_cross(not_across  = [1,2,3],
                               across      = [],
-                              time_spent  = 0,
-                              time_limit  = 6,
+                              time_left   = 6,
                               accumulator = [])
 
         assert len(solutions) == 2

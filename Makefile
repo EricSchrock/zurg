@@ -12,3 +12,7 @@ test:
 .PHONY: docs
 docs:
 	pydoc-markdown -m zurg -I . > docs/ZURG.md
+
+.PHONY: profile
+profile:
+	cd tests && python3 zurg_profile.py

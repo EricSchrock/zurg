@@ -4,10 +4,18 @@ import Search
 import Data.List( (\\), delete, sort)
 import Toys
 
-data Pos = L | R                      deriving (Eq,Show)
+data Pos = L | R                  deriving (Eq,Show)
 type Group = [Toy]
 type BridgePos = (Pos,Group)
 type Move = Either Toy Group
+
+time :: Toy -> Int
+time A = 1
+time B = 2
+time C = 3
+time D = 4
+time E = 5
+time F = 6
 
 duration :: [Move] -> Int
 duration = sum . map (either time (maximum . map time))
@@ -27,3 +35,10 @@ instance SearchProblem BridgePos Move where
 solution :: [Move]
 (solution,_):_ = solutions (L,toys)
 
+allSolutions :: [([Move], (Pos, [Toy]))] -> [[Move]]
+allSolutions ss = [s | (s,_) <- ss]
+
+main :: IO ()
+main = do
+  let ss = allSolutions $ solutions (L,toys)
+   in print $ length ss

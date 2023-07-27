@@ -2,7 +2,7 @@
 
 ## Overview
 
-"Escape from Zurg" is a puzzle described in [Escape from Zurg: An Exercise in Logic Programming](https://web.engr.oregonstate.edu/~erwig/papers/Zurg_JFP04.pdf) in which the author compares two solutions, one in Prolog and one in Haskell, to see if functional programming languages are effective for search problems. Inspire by this, this project compares the author's Haskell solution to my own Python solution in terms of language features, readability, and performance. Python has a mix of imperative, functional, and OOP features that make for an interesting comparison.
+"Escape from Zurg" is a puzzle described in [Escape from Zurg: An Exercise in Logic Programming](https://web.engr.oregonstate.edu/~erwig/papers/Zurg_JFP04.pdf) in which the author compares two solutions, one in Prolog and one in Haskell, to see if functional programming languages are effective for search problems. Inspire by this, my project compares the author's Haskell solution to my own Python solution in terms of language features, readability, and performance. Python has a mix of imperative, functional, and OOP features that make for an interesting comparison.
 
 
 ## Implementation
@@ -19,12 +19,11 @@ My solution is generalized and is not confined to the exact "Escape from Zurg" p
 
 ## Testing
 
-To run the "Escape from Zurg" solution, call `make run`. To run the full test suite, run `make test`. To run the tests follow by the solution, run `make`.
+To run the "Escape from Zurg" solution, call `make run`. To run the full test suite, run `make test`. To run the tests follow by the solution, run `make`. To run profiling, call `make profile`.
 
 Dependencies
-* `make`
-* `python` >= 3.7 (for `pytest`)
-* `pytest`
+* `pytest` (requires `python` >= 3.7)
+* `plotly` (and dependencies)
 
 Within `zurg_test.py` there are system, integration, and unit tests. The `TestZurg` class contains system tests that ensure the solution matches the expected output, derived from `zurg.hs`, a copy of [ZurgDirect.hs](https://web.engr.oregonstate.edu/~erwig/zurg/). These are black box tests, as they do not require knowledge of the implementation, just knowledge of the output format.
 
@@ -32,20 +31,23 @@ The `TestTwoCross` and `TestOneReturns` classes contain a mixture of integration
 
 The tests in `TestTwoCross` and `TestOneReturns` are gray box tests. They only need knowledge of the output format for the test cases but need implementation knowledge to distinguish between integration and unit tests.
 
+`zurg_profiling.py` profiles runtime (Haskell vs Python) as the input size (number of toys) increases. To accentuate runtime trends, the time limit is set high enough to make every solution valid. The results are discussed in the "Conclusions" section.
+
 
 ## Listing
 
 ### Files
 * `docs/`
-  * `example.mer`: Mermaid.js source for example.png.
-  * `example.png`: A chart showing program flow on a simplified puzzle.
+  * `example.mer` and `example.png`: Program flow given a simplified puzzle.
+  * `runtime.png`: Runtime of the Haskell and Python solutions as input size increases.
   * `ZURG.md`: Docs for `zurg.py`.
 * `tests/`
-  * `zurg_test.py`: The test suite for `zurg.py`.
-  * `ZurgDirect.hs`: Puzzle specific Haskell solution from [here](https://web.engr.oregonstate.edu/~erwig/zurg/), used as the ground truth for testing.
-* `Makefile`: Provides `make run` to solve the puzzle, `make test` to run the test suite, and `make docs` to generate Markdown docs from the `zurg.py` docstrings.
-* `README.md`: This file.
-* `README.pdf`: A PDF generated from `README.md` using the Markdown PDF VS Code extension.
+  * `zurg_profile.py`: Generates `runtime.png`.
+  * `zurg_test.py`: Test suite for `zurg.py`.
+  * `Zurg.hs` and `Search.hs`: [Generic Haskell solution](https://web.engr.oregonstate.edu/~erwig/zurg/), modified for runtime profiling.
+  * `ZurgDirect.hs`: [Puzzle specific Haskell solution](https://web.engr.oregonstate.edu/~erwig/zurg/) for ground truth.
+* `Makefile`: `make` commands to `run` the puzzle, `test` and `profile` the code, and generate the `docs`.
+* `README.md` and `README.pdf`: This file.
 
 <div style="page-break-after: always;"></div>
 

@@ -25,24 +25,24 @@ Dependencies
 * `pytest` (requires `python` >= 3.7)
 * `plotly` (and dependencies)
 
-Within `zurg_test.py` there are system, integration, and unit tests. The `TestZurg` class contains system tests that ensure the solution matches the expected output, derived from `zurg.hs`, a copy of [ZurgDirect.hs](https://web.engr.oregonstate.edu/~erwig/zurg/). These are black box tests, as they do not require knowledge of the implementation, just knowledge of the output format.
+Within `zurg_test.py` there are system, integration, and unit tests. The `TestZurg` class contains system tests that ensure the solution matches the expected output, derived from [ZurgDirect.hs](https://web.engr.oregonstate.edu/~erwig/zurg/). These are black box tests, as they do not require knowledge of the implementation, just knowledge of the output format.
 
 The `TestTwoCross` and `TestOneReturns` classes contain a mixture of integration and unit tests, where integration tests test the interplay between multiple user defined functions (in this case, `two_cross()` and `one_returns()`), and unit tests test a single user defined function in isolation. Due to the indirectly recursive nature of both `two_cross()` and `one_returns()`, both integration and unit tests make one function call. The distinction is in the behavior triggered by the input parameters. All the `recursive_case` tests are integration tests. Most of the `termination_case` tests are unit tests, with the exception of `TestTwoCross::test_termination_case_solution_found`.
 
 The tests in `TestTwoCross` and `TestOneReturns` are gray box tests. They only need knowledge of the output format for the test cases but need implementation knowledge to distinguish between integration and unit tests.
 
-`zurg_profiling.py` profiles runtime (Haskell vs Python) as the input size (number of toys) increases. To accentuate runtime trends, the time limit is set high enough to make every solution valid. The results are discussed in the "Conclusions" section.
+`zurg_profiling.py` profiles the RAM usage and runtime (Haskell vs Python, interpreted vs compiled) as the input size (number of toys) increases. To accentuate runtime trends, the time limit is set high enough to make every solution valid. The results are discussed in the "Conclusions" section.
 
 
 ## Listing
 
 ### Files
 * `docs/`
-  * `example.mer` and `example.png`: Program flow given a simplified puzzle.
-  * `runtime.png`: Runtime of the Haskell and Python solutions as input size increases.
+  * `example.mer` and `example.png`: Flow of `zurg.py`, given a simplified puzzle.
+  * `ram.png` and `runtime.png`: Profiling results.
   * `ZURG.md`: Docs for `zurg.py`.
 * `tests/`
-  * `zurg_profile.py`: Generates `runtime.png`.
+  * `zurg_profile.py`: Generates `ram.png` and `runtime.png`.
   * `zurg_test.py`: Test suite for `zurg.py`.
   * `Zurg.hs` and `Search.hs`: [Generic Haskell solution](https://web.engr.oregonstate.edu/~erwig/zurg/), modified for runtime profiling.
   * `ZurgDirect.hs`: [Puzzle specific Haskell solution](https://web.engr.oregonstate.edu/~erwig/zurg/) for ground truth.

@@ -33,7 +33,7 @@ def two_cross(not_across: List[int], across: List[int], time_left: int,
               accumulator: list) -> List[list]
 ```
 
-Splits the search problem by every pair of toys that could cross the bridge. Terminates early if the time limit for getting all the toys across the bridge is exceeded.
+Splits the search problem by every pair of toys that could cross the bridge. Terminates early if the time limit for getting all the toys across the bridge is met.
 
 **Arguments**:
 

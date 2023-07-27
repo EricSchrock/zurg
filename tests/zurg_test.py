@@ -70,6 +70,10 @@ class TestTwoCross:
                               accumulator = [])
 
         assert len(solutions) == 6
+        assert [[1,2],1,[1,3]] in solutions
+        assert [[1,2],2,[2,3]] in solutions
+        assert [[1,3],1,[1,2]] in solutions
+        assert [[1,3],3,[2,3]] in solutions
         assert [[2,3],2,[1,2]] in solutions
         assert [[2,3],3,[1,3]] in solutions
 

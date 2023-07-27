@@ -2,12 +2,19 @@
 
 ## Overview
 
-"Escape from Zurg" is a Toy Story based puzzle. The puzzle is described in [Escape from Zurg: An Exercise in Logic Programming](https://web.engr.oregonstate.edu/~erwig/papers/Zurg_JFP04.pdf) in which the author compares two solutions, one in Prolog and one in Haskell, to see if functional programming languages are effective for search problems.
-
-Python has an interesting mix of imperative, functional, and OOP features. This project compares the author's Haskell solution to my own Python solution in terms of language features, readability, and performance.
+"Escape from Zurg" is a puzzle described in [Escape from Zurg: An Exercise in Logic Programming](https://web.engr.oregonstate.edu/~erwig/papers/Zurg_JFP04.pdf) in which the author compares two solutions, one in Prolog and one in Haskell, to see if functional programming languages are effective for search problems. Inspire by this, this project compares the author's Haskell solution to my own Python solution in terms of language features, readability, and performance. Python has a mix of imperative, functional, and OOP features that make for an interesting comparison.
 
 
 ## Implementation
+
+I met all the objectives laid out in my project proposal. I implemented the "Escape from Zurg" puzzle in Python and then used appropriate testing and profiling to optimize my solution for readability and performance. Finally, I compared my solution to the Haskell solution (see the "Conclusions" section at the end).
+
+In `zurg.py`, I implemented a depth-first search using indirect recursion. `zurg()` defines the puzzle parameters and initiates the solution by calling `two_cross()`. `two_cross()` finds all the possible pairs that could cross and calls `one_returns()` for each. `one_returns()` calls `two_cross()` once for each toy that has crossed and could return. The recursion continues until each branch terminates, either because the "time limit" for the toys to cross the bridge has expired or because a solution has been found.
+
+My solution is generalized and is not confined to the exact "Escape from Zurg" puzzle parameters. Calling `two_cross()` directly, instead of calling `zurg()`, allows you to input custom search parameters. For an example of this, see `TestTwoCross::test_recursive_case_with_time_limit` in `zurg_test.py`. Below is a chart that illustrates this test case visually. Red nodes represent time limit terminations while green nodes represent solutions found.
+
+<center><img src="docs/example.png" alt="example" width="550"/></center>
+<div style="page-break-after: always;"></div>
 
 
 ## Testing
@@ -30,13 +37,17 @@ The tests in `TestTwoCross` and `TestOneReturns` are gray box tests. They only n
 
 ### Files
 * `docs/`
+  * `example.mer`: Mermaid.js source for example.png.
+  * `example.png`: A chart showing program flow on a simplified puzzle.
   * `ZURG.md`: Docs for `zurg.py`.
 * `tests/`
   * `zurg_test.py`: The test suite for `zurg.py`.
   * `zurg.hs`: A copy of [ZurgDirect.hs](https://web.engr.oregonstate.edu/~erwig/zurg/), used as the ground truth for testing.
-* `Makefile`: Provides `make run` to solve the puzzle, `make test` to run the test suite, and `make docs` to generate Markdown docs from the `zurg.py` and `zurg_test.py` docstrings.
+* `Makefile`: Provides `make run` to solve the puzzle, `make test` to run the test suite, and `make docs` to generate Markdown docs from the `zurg.py` docstrings.
 * `README.md`: This file.
 * `README.pdf`: A PDF generated from `README.md` using the Markdown PDF VS Code extension.
+
+<div style="page-break-after: always;"></div>
 
 ### Functions (`zurg.py`)
 
@@ -55,7 +66,7 @@ def two_cross(not_across: List[int], across: List[int], time_left: int,
               accumulator: list) -> List[list]
 ```
 
-Splits the search problem by every pair of toys that could cross the bridge. Terminates early if the time limit for getting all the toys across the bridge is exceeded.
+Splits the search problem by every pair of toys that could cross the bridge. Terminates early if the time limit for getting all the toys across the bridge is met.
 
 **Arguments**:
 
@@ -85,6 +96,8 @@ Splits the search problem by every toy that could return across the bridge with 
 **Returns**:
 
 `List[list]`: A list of solutions
+
+<div style="page-break-after: always;"></div>
 
 
 ## Conclusions

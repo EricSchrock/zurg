@@ -34,7 +34,7 @@ def one_returns(not_across: List[int], across: List[int], time_left: int, accumu
 
 
 def two_cross(not_across: List[int], across: List[int], time_left: int, accumulator: list) -> List[list]:
-    '''Splits the search problem by every pair of toys that could cross the bridge. Terminates early if the time limit for getting all the toys across the bridge is exceeded.
+    '''Splits the search problem by every pair of toys that could cross the bridge. Terminates early if the time limit for getting all the toys across the bridge is met.
 
     :param not_across: Toys not yet across the bridge
     :type not_across: List[int]
@@ -48,7 +48,7 @@ def two_cross(not_across: List[int], across: List[int], time_left: int, accumula
     :returns: A list of solutions
     :rtype: List[list]
     '''
-    if time_left < 0:
+    if time_left <= 0:
         return []
 
     pairs = list(combinations(not_across, r=2))

@@ -1,0 +1,97 @@
+flowchart TD
+    zurg([start])
+
+    twoCross1["`two_cross(
+    not_across=[1,2,3],
+    across=[],
+    time_left=6)`"]
+
+    oneReturns1["`one_returns(
+    not_across=[3],
+    across=[1,2],
+    time_left=4)`"]
+
+    oneReturns2["`one_returns(
+    not_across=[2],
+    across=[1,3],
+    time_left=3)`"]
+
+    oneReturns3["`one_returns(
+    not_across=[1],
+    across=[2,3],
+    time_left=3)`"]
+
+    twoCross2["`two_cross(
+    not_across=[1,3],
+    across=[2],
+    time_left=3)`"]
+
+    twoCross3["`two_cross(
+    not_across=[2,3],
+    across=[1],
+    time_left=2)`"]
+
+    twoCross4["`two_cross(
+    not_across=[1,2],
+    across=[3],
+    time_left=2)`"]
+
+    twoCross5["`two_cross(
+    not_across=[2,3],
+    across=[1],
+    time_left=0)`"]
+
+    twoCross6["`two_cross(
+    not_across=[1,2],
+    across=[3],
+    time_left=1)`"]
+
+    twoCross7["`two_cross(
+    not_across=[1,3],
+    across=[2],
+    time_left=0)`"]
+
+    oneReturns4["`one_returns(
+    not_across=[],
+    across=[1,2,3],
+    time_left=0)`"]
+
+    oneReturns5["`one_returns(
+    not_across=[],
+    across=[1,2,3],
+    time_left=-1)`"]
+
+    oneReturns6["`one_returns(
+    not_across=[],
+    across=[1,2,3],
+    time_left=0)`"]
+
+    oneReturns7["`one_returns(
+    not_across=[],
+    across=[1,2,3],
+    time_left=-1)`"]
+
+    zurg --> twoCross1
+
+    twoCross1 --> oneReturns1
+    twoCross1 --> oneReturns2
+    twoCross1 --> oneReturns3
+
+    oneReturns1 --> twoCross2
+    oneReturns1 --> twoCross3
+    oneReturns2 --> twoCross4
+    oneReturns2 --> twoCross5
+    oneReturns3 --> twoCross6
+    oneReturns3 --> twoCross7
+
+    twoCross2 --> oneReturns4
+    twoCross3 --> oneReturns5
+    twoCross4 --> oneReturns6
+    twoCross6 --> oneReturns7
+
+    style oneReturns4 fill:#4f4
+    style oneReturns5 fill:#f44
+    style oneReturns6 fill:#4f4
+    style twoCross5   fill:#f44
+    style oneReturns7 fill:#f44
+    style twoCross7   fill:#f44

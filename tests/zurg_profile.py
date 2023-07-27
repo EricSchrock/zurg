@@ -1,3 +1,4 @@
+import psutil
 import re
 import sys
 sys.path.append("..")
@@ -5,7 +6,7 @@ import zurg
 
 from glob import glob
 from math import inf
-from os import remove, system
+from os import getpid, remove, system
 from plotly.graph_objects import Figure, Scatter
 from time import time
 
@@ -14,7 +15,7 @@ def haskell_profiling():
     inputs = {2: "A,B", 3: "A,B,C", 4: "A,B,C,D", 5: "A,B,C,D,E", 6: "A,B,C,D,E,F"}
     seconds_interpreted = {}
     seconds_compiled = {}
-    ram_used = {}
+    memory_used = {}
 
     for key, value in inputs.items():
         toys = ["module Toys where",
@@ -42,47 +43,51 @@ def haskell_profiling():
             lines = f.readlines()
         for line in lines:
             if "total alloc" in line:
-                ram_used[key] = int(re.sub('[^0-9]','', line)) / (1024 * 1024)
+                memory_used[key] = int(re.sub('[^0-9]','', line))
                 break
 
     files = glob("*.hi") + glob("*.o") + ["Toys.hs"] + ["Zurg"] + ["Zurg.prof"]
     for file in files:
         remove(file)
 
-    return seconds_interpreted, seconds_compiled, ram_used
+    return seconds_interpreted, seconds_compiled, memory_used
 
 
-def python_interpreted():
-    num_solutions = {}
-    seconds_taken = {}
+def python_profiling():
+    seconds_interpreted = {}
+    memory_used = {}
 
     for i in range(2, 7):
+        process = psutil.Process(getpid())
+        initial = process.memory_info().vms
         start = time()
         solutions = zurg.two_cross(range(1, i+1), [], inf, [])
         end = time()
+        final = process.memory_info().vms
 
-        num_solutions[i] = len(solutions)
-        seconds_taken[i] = end - start
+        seconds_interpreted[i] = end - start
+        memory_used[i] = (final - initial)
 
-    return seconds_taken
+    return seconds_interpreted, memory_used
 
 
 if __name__ == "__main__":
-    hs_int, hs_comp, hs_ram = haskell_profiling()
-    py_int = python_interpreted()
+    hs_int, hs_comp, hs_mem = haskell_profiling()
+    py_int, py_mem = python_profiling()
 
     fig = Figure()
-    fig.add_trace(Scatter(x=list(hs_int.keys()), y=list(hs_int.values()), mode='markers', name='haskell (interpreted)'))
-    fig.add_trace(Scatter(x=list(hs_comp.keys()), y=list(hs_comp.values()), mode='markers', name='haskell (compiled)'))
-    fig.add_trace(Scatter(x=list(py_int.keys()), y=list(py_int.values()), mode='markers', name='python (interpreted)'))
+    fig.add_trace(Scatter(x=list(hs_int.keys()), y=list(hs_int.values()), mode='markers', name='Haskell (interpreted)'))
+    fig.add_trace(Scatter(x=list(hs_comp.keys()), y=list(hs_comp.values()), mode='markers', name='Haskell (compiled)'))
+    fig.add_trace(Scatter(x=list(py_int.keys()), y=list(py_int.values()), mode='markers', name='Python (interpreted)'))
     fig.update_yaxes(title='Runtime (seconds)', type='log')
     fig.update_xaxes(title='Number of inputs')
     fig.update_layout(title='Runtime vs number of inputs')
     fig.write_image("../docs/runtime.png")
 
     fig = Figure()
-    fig.add_trace(Scatter(x=list(hs_ram.keys()), y=list(hs_ram.values()), mode='markers', name='haskell (compiled)'))
-    fig.update_yaxes(title='RAM (MB)', type='log')
+    fig.add_trace(Scatter(x=list(hs_mem.keys()), y=list(hs_mem.values()), mode='markers', name='Haskell (compiled)'))
+    fig.add_trace(Scatter(x=list(py_mem.keys()), y=list(py_mem.values()), mode='markers', name='Python (interpreted)'))
+    fig.update_yaxes(title='Memory allocated (bytes)', type='log')
     fig.update_xaxes(title='Number of inputs')
-    fig.update_layout(title='RAM allocated vs number of inputs')
+    fig.update_layout(title='Memory allocated vs number of inputs')
     fig.write_image("../docs/ram.png")

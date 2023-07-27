@@ -4,6 +4,7 @@
 
 "Escape from Zurg" is a puzzle described in [Escape from Zurg: An Exercise in Logic Programming](https://web.engr.oregonstate.edu/~erwig/papers/Zurg_JFP04.pdf) in which the author compares two solutions, one in Prolog and one in Haskell, to see if functional programming languages are effective for search problems. Inspire by this, my project compares the author's Haskell solution to my own Python solution in terms of language features, readability, and performance. Python has a mix of imperative, functional, and OOP features that make for an interesting comparison.
 
+&nbsp;
 
 ## Implementation
 
@@ -13,17 +14,14 @@ In `zurg.py`, I implemented a depth-first search using indirect recursion. `zurg
 
 My solution is generalized and is not confined to the exact "Escape from Zurg" puzzle parameters. Calling `two_cross()` directly, instead of calling `zurg()`, allows you to input custom search parameters. For an example of this, see `TestTwoCross::test_recursive_case_with_time_limit` in `zurg_test.py`. Below is a chart that illustrates this test case visually. Red nodes represent time limit terminations while green nodes represent solutions found.
 
-<center><img src="docs/example.png" alt="example" width="550"/></center>
+<center><img src="docs/example.png" alt="example" width="500"/></center>
+
 <div style="page-break-after: always;"></div>
 
 
 ## Testing
 
-To run the "Escape from Zurg" solution, call `make run`. To run the full test suite, run `make test`. To run the tests follow by the solution, run `make`. To run profiling, call `make profile`.
-
-Dependencies
-* `pytest` (requires `python` >= 3.7)
-* `plotly` (and dependencies)
+To run the "Escape from Zurg" solution, call `make run`. To run the full test suite, run `make test`. To run the tests follow by the solution, run `make`. To run profiling, call `make profile`. Most of the available `make` commands have dependencies, especially `profile`.
 
 Within `zurg_test.py` there are system, integration, and unit tests. The `TestZurg` class contains system tests that ensure the solution matches the expected output, derived from [ZurgDirect.hs](https://web.engr.oregonstate.edu/~erwig/zurg/). These are black box tests, as they do not require knowledge of the implementation, just knowledge of the output format.
 
@@ -32,6 +30,8 @@ The `TestTwoCross` and `TestOneReturns` classes contain a mixture of integration
 The tests in `TestTwoCross` and `TestOneReturns` are gray box tests. They only need knowledge of the output format for the test cases but need implementation knowledge to distinguish between integration and unit tests.
 
 `zurg_profiling.py` profiles the RAM usage and runtime (Haskell vs Python, interpreted vs compiled) as the input size (number of toys) increases. To accentuate runtime trends, the time limit is set high enough to make every solution valid. The results are discussed in the "Conclusions" section.
+
+&nbsp;
 
 
 ## Listing

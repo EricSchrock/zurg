@@ -15,4 +15,4 @@ docs:
 
 .PHONY: profile
 profile:
-	cd tests && python3 zurg_profile.py
+	cd tests && python3 zurg_profile.py >/dev/null

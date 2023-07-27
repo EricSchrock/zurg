@@ -90,4 +90,4 @@ if __name__ == "__main__":
     fig.update_yaxes(title='Memory allocated (bytes)', type='log')
     fig.update_xaxes(title='Number of inputs')
     fig.update_layout(title='Memory allocated vs number of inputs')
-    fig.write_image("../docs/ram.png")
+    fig.write_image("../docs/memory.png")

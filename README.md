@@ -42,7 +42,7 @@ The tests in `TestTwoCross` and `TestOneReturns` are gray box tests. They only n
   * `ZURG.md`: Docs for `zurg.py`.
 * `tests/`
   * `zurg_test.py`: The test suite for `zurg.py`.
-  * `zurg.hs`: A copy of [ZurgDirect.hs](https://web.engr.oregonstate.edu/~erwig/zurg/), used as the ground truth for testing.
+  * `ZurgDirect.hs`: Puzzle specific Haskell solution from [here](https://web.engr.oregonstate.edu/~erwig/zurg/), used as the ground truth for testing.
 * `Makefile`: Provides `make run` to solve the puzzle, `make test` to run the test suite, and `make docs` to generate Markdown docs from the `zurg.py` docstrings.
 * `README.md`: This file.
 * `README.pdf`: A PDF generated from `README.md` using the Markdown PDF VS Code extension.

@@ -2,22 +2,12 @@ module Zurg where
 
 import Search
 import Data.List( (\\), delete, sort)
+import Toys
 
-
-data Toy = Buzz | Hamm | Rex | Woody  deriving (Eq,Ord,Show)
 data Pos = L | R                      deriving (Eq,Show)
 type Group = [Toy]
 type BridgePos = (Pos,Group)
 type Move = Either Toy Group
-
-toys :: [Toy]
-toys = [Buzz,Hamm,Rex,Woody]
-
-time :: Toy -> Int
-time Buzz  = 5
-time Woody = 10
-time Rex   = 20
-time Hamm  = 25
 
 duration :: [Move] -> Int
 duration = sum . map (either time (maximum . map time))

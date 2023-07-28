@@ -48,6 +48,7 @@ The tests in `TestTwoCross` and `TestOneReturns` are gray box tests. They only n
   * `ZurgDirect.hs`: [Puzzle specific Haskell solution](https://web.engr.oregonstate.edu/~erwig/zurg/) for ground truth.
 * `Makefile`: `make` commands to `run` the puzzle, `test` and `profile` the code, and generate the `docs`.
 * `README.md` and `README.pdf`: This file.
+* `zurg.py`: Python solution to the "Escape from Zurg" puzzle.
 
 <div style="page-break-after: always;"></div>
 
